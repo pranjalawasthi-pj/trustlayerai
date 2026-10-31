@@ -1,12 +1,14 @@
 services:
   - type: web
     name: trustlayer-ai-api
-    runtime: python
+    env: python
     rootDir: backend
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
       - key: DATABASE_URL
         value: sqlite:///./trustlayer.db
       - key: FRONTEND_ORIGIN
-        value: https://YOUR-FRONTEND-DOMAIN
+        value: https://trustlayerai-git-main-pj-bdb1.vercel.app
