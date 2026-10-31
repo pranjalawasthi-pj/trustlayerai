@@ -2,7 +2,7 @@ import React,{useEffect,useState} from 'react';
 import {ShieldCheck,ShieldAlert,LayoutDashboard,ShoppingCart,ScanSearch,ReceiptText,ScrollText,Settings,LockKeyhole,Activity,ChevronRight,ArrowUpRight,Search,CheckCircle2,AlertTriangle, Ban, Zap, Menu, X, RefreshCw, CreditCard, Shield} from 'lucide-react';
 import {BarChart,Bar,XAxis,YAxis,Tooltip,ResponsiveContainer} from 'recharts';
 
-const API='http://localhost:8000/api';
+const API = (import.meta.env.VITE_API_BASE_URL || 'https://trustlayerai-q1dr.onrender.com').replace(/\/$/, '') + '/api';
 const money=n=>'₹'+Number(n||0).toLocaleString('en-IN');
 const nav=[['Overview',LayoutDashboard],['AI Shopping',ShoppingCart],['Trust Analysis',ScanSearch],['Transactions',ReceiptText],['Security Ledger',ScrollText],['Settings',Settings]];
 function Pill({children,tone='blue'}){return <span className={'pill '+tone}>{children}</span>}
