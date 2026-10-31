@@ -15,28 +15,43 @@ from .trust_engine import evaluate_product
 from .config import settings
 from . import paypal
 
+import os
 
-app = FastAPI(title="TrustLayer AI API")
+app = FastAPI(
+    title="TrustLayer AI API",
+    description="Full-stack AI-PayPal Security Layer",
+    version="1.0.0"
+)
 
-# 1. Enable CORS (Taaki Vercel frontend bina kisi issue ke connect ho sake)
+# CORS Setup (Vercel Frontend aur local testing dono ke liye)
+frontend_origin = os.getenv("FRONTEND_ORIGIN", "*")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*", frontend_origin],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# 2. Add Root Route (Ye detail: Not Found error ko fix karega)
+# -------------------------------------------------------------
+# ROOT ROUTE (Fixes 404 Not Found on Render Root URL)
+# -------------------------------------------------------------
 @app.get("/")
 def read_root():
     return {
         "status": "online",
-        "message": "TrustLayer AI Engine API is running successfully!",
-        "version": "1.0.0"
+        "service": "TrustLayer AI Engine",
+        "message": "Backend API is live and operational!"
     }
 
-# Baki ke aapke endpoints (/api/v1/verify-and-pay etc.) niche waise hi rehne do...
+# -------------------------------------------------------------
+# HEALTH CHECK ROUTE
+# -------------------------------------------------------------
+@app.get("/api/health")
+def health_check():
+    return {"status": "healthy"}
+
+# Apke baki ke endpoints (/api/v1/verify-and-pay, etc.) niche waise hi rehne dein...
 
 Base.metadata.create_all(bind=engine)
 app = FastAPI(title="TRUSTLAYER AI API", version="1.0.0")
