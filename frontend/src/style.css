@@ -205,27 +205,73 @@ button { cursor: pointer; }
 .crumb b { color: #ffffff; font-weight: 500; }
 .top-right { display: flex; align-items: center; gap: 8px; }
 
-/* Micro Badge Pills */
+/* =========================================================
+   SUBTLE MONOCHROME ENTERPRISE BADGES & PILLS
+   ========================================================= */
+
 .pill {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  padding: 3px 8px;
-  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 6px;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   white-space: nowrap;
-  border: 1px solid transparent;
+  letter-spacing: 0.3px;
+  background: #121215 !important;
+  color: #a1a1aa !important;
+  border: 1px solid #27272a !important;
+  box-shadow: none !important;
 }
 
-.pill.green { color: #34d399; background: #062016; border-color: #064e3b; }
-.pill.blue { color: #60a5fa; background: #0a192f; border-color: #1e3a8a; }
-.pill.violet { color: #c084fc; background: #1a0b2e; border-color: #581c87; }
-.pill.red { color: #f87171; background: #270a0f; border-color: #881337; }
-.pill.amber { color: #fbbf24; background: #221500; border-color: #78350f; }
-.pill.hero { color: #a3a3a3; background: #171717; border-color: var(--border-strong); }
+/* Operational / Success Muted Badge */
+.pill.green {
+  background: #091712 !important;
+  color: #34d399 !important;
+  border-color: #10b98133 !important;
+}
 
-.pulse { width: 5px; height: 5px; border-radius: 50%; background: var(--accent-green); }
+/* Sandbox / Special Neutral Badge */
+.pill.violet, .pill.blue {
+  background: #18181b !important;
+  color: #d4d4d8 !important;
+  border-color: #3f3f46 !important;
+}
+
+/* Alert / Block Muted Badge */
+.pill.red {
+  background: #1c0a0e !important;
+  color: #f87171 !important;
+  border-color: #f43f5e33 !important;
+}
+
+/* Warning / Action Muted Badge */
+.pill.amber {
+  background: #1c1308 !important;
+  color: #fbbf24 !important;
+  border-color: #f59e0b33 !important;
+}
+
+.pill.hero {
+  background: #18181b !important;
+  color: #e4e4e7 !important;
+  border-color: #27272a !important;
+}
+
+/* Muted Subtle Indicator Dot */
+.pulse, .pill i {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+}
+
+.pill.violet .pulse, .pill.blue .pulse {
+  background: #a1a1aa;
+}
 
 .content { max-width: 1280px; margin: auto; padding: 24px 28px; }
 
@@ -455,7 +501,7 @@ footer span { color: var(--border); margin: 0 4px; }
 .demo-strip b { font-size: 11px; color: #ffffff; }
 .demo-strip p { font-size: 10px; color: var(--text-muted); margin: 2px 0 0; }
 
-.notice { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid #78350f; background: #221500; color: #fbbf24; border-radius: 6px; font-size: 11px; margin-bottom: 14px; }
+.notice { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid #3f3f46; background: #18181b; color: #e4e4e7; border-radius: 6px; font-size: 11px; margin-bottom: 14px; }
 
 @media(max-width: 850px) {
   .sidebar { transform: translateX(-105%); transition: transform 0.2s ease; }
