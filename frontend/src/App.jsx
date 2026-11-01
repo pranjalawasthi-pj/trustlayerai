@@ -73,6 +73,7 @@ function App(){
           disabled={busy}
           onClick={async () => {
             setBusy(true);
+            const popup = window.open('about:blank', '_blank', 'width=600,height=700');
             try {
               const res = await fetch(API + '/paypal/create-order', {
                 method: 'POST',
@@ -85,12 +86,14 @@ function App(){
               });
               const data = await res.json();
               if (data.approve_url) {
-                window.open(data.approve_url, '_blank', 'width=600,height=700');
+                if (popup) popup.location.href = data.approve_url;
                 setNotice('PayPal Checkout window opened. Complete Sandbox payment.');
               } else {
-                setNotice('PayPal Order created successfully: ' + (data.order_id || 'Token Active'));
+                if (popup) popup.close();
+                setNotice('PayPal Order created successfully: Token Active ' + (data.order_id || ''));
               }
             } catch (err) {
+              if (popup) popup.close();
               setNotice('PayPal Gateway Error: ' + err.message);
             } finally {
               setBusy(false);
