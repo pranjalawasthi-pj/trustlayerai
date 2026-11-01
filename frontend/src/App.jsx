@@ -73,7 +73,10 @@ function App(){
           disabled={busy}
           onClick={async () => {
             setBusy(true);
-            const popup = window.open('about:blank', '_blank', 'width=600,height=700');
+            const popup = window.open('', '_blank', 'width=600,height=700');
+            if (popup) {
+              popup.document.write('<h3 style="font-family:sans-serif;padding:20px;">Connecting to PayPal Sandbox Gateway...</h3>');
+            }
             try {
               const res = await fetch(API + '/paypal/create-order', {
                 method: 'POST',
@@ -87,13 +90,17 @@ function App(){
               const data = await res.json();
               if (data.approve_url) {
                 if (popup) popup.location.href = data.approve_url;
-                setNotice('PayPal Checkout window opened. Complete Sandbox payment.');
+                setNotice('PayPal Checkout window opened.');
               } else {
-                if (popup) popup.close();
-                setNotice('PayPal Order created successfully: Token Active ' + (data.order_id || ''));
+                if (popup) {
+                  popup.document.body.innerHTML = '<pre style="padding:20px;color:red;font-size:14px;">PayPal Response:\n' + JSON.stringify(data, null, 2) + '</pre>';
+                }
+                setNotice('PayPal response received (No approve_url). Check window content.');
               }
             } catch (err) {
-              if (popup) popup.close();
+              if (popup) {
+                popup.document.body.innerHTML = '<h3 style="color:red;padding:20px;">Error: ' + err.message + '</h3>';
+              }
               setNotice('PayPal Gateway Error: ' + err.message);
             } finally {
               setBusy(false);
