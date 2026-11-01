@@ -75,7 +75,7 @@ function App(){
             setBusy(true);
             const popup = window.open('', '_blank', 'width=600,height=700');
             if (popup) {
-              popup.document.write('<h3 style="font-family:sans-serif;padding:20px;">Connecting to PayPal Sandbox Gateway...</h3>');
+              popup.document.write('<h3 style="font-family:sans-serif;padding:20px;color:#333;">Connecting to PayPal Sandbox Gateway...</h3>');
             }
             try {
               const res = await fetch(API + '/paypal/create-order', {
@@ -84,7 +84,9 @@ function App(){
                 body: JSON.stringify({
                   product_id: selected.product.id,
                   amount: selected.analysis.total,
-                  currency: 'USD'
+                  currency: 'USD',
+                  approval_token: approval.transaction_ref,
+                  order_id: approval.transaction_ref
                 })
               });
               const data = await res.json();
@@ -95,7 +97,7 @@ function App(){
                 if (popup) {
                   popup.document.body.innerHTML = '<pre style="padding:20px;color:red;font-size:14px;">PayPal Response:\n' + JSON.stringify(data, null, 2) + '</pre>';
                 }
-                setNotice('PayPal response received (No approve_url). Check window content.');
+                setNotice('PayPal order error: check popup window.');
               }
             } catch (err) {
               if (popup) {
